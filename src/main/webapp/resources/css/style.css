@@ -1,0 +1,8 @@
+#example-grid {
+    font-family:helvetica,tahoma,verdana,sans-serif;
+    float: left;
+    padding:20px;
+    padding-top:32px;
+    font-size:13px;
+    background-color:#fff !important;
+}

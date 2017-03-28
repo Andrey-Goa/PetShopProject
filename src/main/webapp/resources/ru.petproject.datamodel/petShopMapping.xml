@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.petproject.dao.PetShopMapper">
+    <update id="createTableIfNotExist">
+     DROP TABLE IF EXISTS  public.petshop;
+        CREATE TABLE IF NOT EXISTS public.petshop
+(
+  petshop_id integer NOT NULL,
+  storage text,
+  produck_name text,
+  quantity numeric,
+  price numeric,
+  PRIMARY KEY (petshop_id)
+);
+CREATE SEQUENCE IF NOT EXISTS serial START WITH 1
+    </update>
+    <select id="findAllPetshop"  resultType="PetShop">
+        SELECT * FROM  petshop
+    </select>
+    <insert id="setPetShop" parameterType="PetShop" useGeneratedKeys="true" keyColumn="petshop_id">
+        <selectKey keyProperty="petshop_id" resultType="int" order="BEFORE">
+            SELECT nextVal('serial')
+        </selectKey>
+        INSERT INTO petshop (petshop_id, storage, produck_name, quantity, price)
+        VALUES
+        (#{petshop_id}, #{storage},#{produck_name}, #{quantity}, #{price})
+    </insert>
+    <delete id="deletePetshop">
+        DELETE FROM petshop WHERE petshop_id = #{petshop_id}
+    </delete>
+    <update id="updatePetShop">
+        UPDATE petshop SET  storage = #{storage}, produck_name = #{produck_name},quantity = #{quantity}, price = #{price}  WHERE petshop_id = #{petshop_id}
+    </update>
+
+</mapper>
